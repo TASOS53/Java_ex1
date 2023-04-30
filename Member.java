@@ -26,14 +26,23 @@ public class Member implements Serializable {
     void setName(String name) {this.name = name;}
     void setType(String type) 
     {
-        if(type.equals("student") || type.equals("professor") 
-        || type.equals("secretariat") || type.equals("administration"))
+        if(type.equals("Student") || type.equals("Professor") 
+        || type.equals("Secretariat") || type.equals("Administration"))
+        {
             this.type = type;
-        else System.out.println("Type must be one of student, professor, secretariat or administration");
+            //return 0;
+        }
+        else
+        {
+            System.out.println("Type must be one of Student, Professor, Secretariat or Administration");
+            //return 1;
+        }
     }
     void setEmail(String email) {this.email = email;}
     String getName() {return this.name;}
     int getId() {return this.id;}
+    String getType() {return this.type;}
+    String getEmail() {return this.email;}
 
     static void insert(List<Member> memberList)
     {
@@ -50,11 +59,11 @@ public class Member implements Serializable {
             
             System.out.println("Give type");
             String type = br.readLine();
-            newMember.setName(type);
+            newMember.setType(type);
 
             System.out.println("Give e-mail");
             String email = br.readLine();
-            newMember.setName(email);
+            newMember.setEmail(email);
 
             memberList.add(newMember);
             System.out.println("New member added");
@@ -77,7 +86,8 @@ public class Member implements Serializable {
 
     void show()
     {
-        System.out.println("ID: " + this.getId() + ", Name: " + this.getName() + ".");
+        System.out.println("ID: " + this.getId() + ", Name: " + this.getName() + 
+                           ", Type: " + this.getType() + ", Email: " + this.email + ".");
     }
 
 
@@ -92,7 +102,6 @@ public class Member implements Serializable {
 
     static Member searchById(List<Member> memberList, int id)
     {
-        
         for(Member member:memberList)
         {
             if(member.getId() == id)   return member;
@@ -101,9 +110,15 @@ public class Member implements Serializable {
     }
 
 
-    static void delete(List<Member> memberList, Member member)
+    static void delete(List<Member> memberList, int id)
     {
-        memberList.remove(member);   
+        Member member = Member.searchById(memberList, id);
+        if(member != null)
+        {
+            memberList.remove(member);
+            System.out.println("Member deleted");
+        }
+        else System.out.println("ID: " + id + " not found");
     }
 
     static void update(List<Member> memberList, int id, Member newMember)
@@ -114,7 +129,9 @@ public class Member implements Serializable {
             oldMember.name = newMember.name;
             oldMember.type = newMember.type;
             oldMember.email = newMember.email;
+            System.out.println("Member updated");
         }
+        else System.out.println("ID: " + id + " not found");
     }
 
 }

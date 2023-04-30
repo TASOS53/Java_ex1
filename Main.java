@@ -77,14 +77,13 @@ class Main
                             
                             System.out.println("Give new type");
                             String type = br.readLine();
-                            newMember.setName(type);
+                            newMember.setType(type);
                 
                             System.out.println("Give new e-mail");
                             String email = br.readLine();
-                            newMember.setName(email);
+                            newMember.setEmail(email);
 
-                            Member.update(memberList, id, newMember);
-                
+                            Member.update(memberList, id, newMember);                
                         }
                         else System.out.println("ID: " + id + " not found");
                     }
@@ -100,7 +99,11 @@ class Main
                         int id;
                         id = Integer.parseInt(br.readLine());
                         Member member = Member.searchById(memberList, id);
-                        Member.delete(memberList, member);
+                        if (member!=null)
+                        {
+                            Member.delete(memberList, id);
+                        }
+                        else System.out.println("ID: " + id + " not found");
                     }
                     catch (IOException ioe) {
                         System.exit(1);
