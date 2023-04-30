@@ -1,4 +1,4 @@
-package Unipi.JAVA.ex1;
+package Unipi.Java.ex1;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 class Main
 {
     public static void main(String[] args) 
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<Member> memberList = null;
-        memberList = deserializeAllMembers();
+        memberList = deserializeAllMembers();       //load serialized members if there are any
         if(memberList == null) memberList = new ArrayList<>();
         boolean exitFlag = false;
         while(exitFlag == false)
@@ -37,7 +36,7 @@ class Main
                     break;
 
                 case 3:
-                    System.out.println("Εισάγετε όνομα");
+                    System.out.println("Give a name");
                     try {
                         String name;
                         name = br.readLine();
@@ -49,13 +48,13 @@ class Main
                     break;
 
                 case 4:
-                    System.out.println("Εισάγετε κωδικό");
+                    System.out.println("Give an id");
                     try {
                         int id;
                         id = Integer.parseInt(br.readLine());
                         Member member = Member.searchById(memberList, id);
                         if (member!=null)   member.show();
-                        else System.out.println("Το id: " + id + " δεν βρέθηκε");
+                        else System.out.println("ID: " + id + " not found");
                     }
                     catch (IOException ioe) {
                         System.exit(1);
@@ -63,7 +62,7 @@ class Main
                     break;
 
                 case 5:
-                    System.out.println("Εισάγετε κωδικό");
+                    System.out.println("Give an id");
                     try {
                         int id;
                         id = Integer.parseInt(br.readLine());
@@ -72,22 +71,22 @@ class Main
                         {
                             Member newMember = new Member();
 
-                            System.out.println("Δώσε νέο ονοματεπώνυμο");
+                            System.out.println("Give new name");
                             String name = br.readLine();
                             newMember.setName(name);
                             
-                            System.out.println("Δώσε νέα ιδιότητα");
+                            System.out.println("Give new type");
                             String type = br.readLine();
                             newMember.setName(type);
                 
-                            System.out.println("Δώσε νέο e-mail");
+                            System.out.println("Give new e-mail");
                             String email = br.readLine();
                             newMember.setName(email);
 
                             Member.update(memberList, id, newMember);
                 
                         }
-                        else System.out.println("Το id: " + id + " δεν βρέθηκε");
+                        else System.out.println("ID: " + id + " not found");
                     }
                     catch (IOException ioe) {
                         System.exit(1);
@@ -96,7 +95,7 @@ class Main
                     break;
 
                 case 6:
-                    System.out.println("Εισάγετε κωδικό");
+                    System.out.println("Give id");
                     try {
                         int id;
                         id = Integer.parseInt(br.readLine());
@@ -109,7 +108,7 @@ class Main
                     break;
 
                 case 7:
-                    serializeAllMembers(memberList);
+                    serializeAllMembers(memberList);        //serialize all members if any exist
                     System.out.println("Goodbye");
                     exitFlag = true;
                     break;
@@ -125,18 +124,18 @@ class Main
     private static void showOptions()
     {
         System.out.println("");
-        System.out.println("Παρακαλώ επιλέξτε μία από τις κάτωθι ενέργειες");
-        System.out.println("1. Προβολή όλων των διαθέσιμων καταγεγραμμένων μελών");
-        System.out.println("2. Προσθήκη νέου μέλους");
-        System.out.println("3. Αναζήτηση βάσει ονόματος");
-        System.out.println("4. Αναζήτηση βάσει κωδικού");
-        System.out.println("5. Επεξεργασία στοιχείων μέλους βάσει κωδικού");
-        System.out.println("6. Διαγραφή μέλους βάσει κωδικού");
-        System.out.println("7. Έξοδος από την εφαρμογή");
+        System.out.println("Please choose one of the following:");
+        System.out.println("1. Show all members");
+        System.out.println("2. Add new member");
+        System.out.println("3. Search by name");
+        System.out.println("4. Search by id");
+        System.out.println("5. Process existing member");
+        System.out.println("6. Delete member by id");
+        System.out.println("7. Exit");
         System.out.println("");
     }
 
-    private static int readOption() {
+    static int readOption() {
         int Option = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try

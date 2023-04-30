@@ -1,4 +1,4 @@
-package Unipi.JAVA.ex1;
+package Unipi.Java.ex1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +24,13 @@ public class Member implements Serializable {
 
     void setId(int id) {this.id = id;}
     void setName(String name) {this.name = name;}
-    void setType(String type) {this.type = type;}
+    void setType(String type) 
+    {
+        if(type.equals("student") || type.equals("professor") 
+        || type.equals("secretariat") || type.equals("administration"))
+            this.type = type;
+        else System.out.println("Type must be one of student, professor, secretariat or administration");
+    }
     void setEmail(String email) {this.email = email;}
     String getName() {return this.name;}
     int getId() {return this.id;}
@@ -34,24 +40,24 @@ public class Member implements Serializable {
         Member newMember = new Member();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try{
-            System.out.println("Δώσε id");
+            System.out.println("Give id");
             int id = Integer.parseInt(br.readLine());
             newMember.setId(id);
             
-            System.out.println("Δώσε ονοματεπώνυμο");
+            System.out.println("Give name");
             String name = br.readLine();
             newMember.setName(name);
             
-            System.out.println("Δώσε ιδιότητα");
+            System.out.println("Give type");
             String type = br.readLine();
             newMember.setName(type);
 
-            System.out.println("Δώσε e-mail");
+            System.out.println("Give e-mail");
             String email = br.readLine();
             newMember.setName(email);
 
             memberList.add(newMember);
-            System.out.println("Το νέο μέλος προστέθηκε");
+            System.out.println("New member added");
             System.out.println("");
         }
         catch (IOException ioe) {
@@ -62,11 +68,9 @@ public class Member implements Serializable {
     static void showAll (List<Member> memberList)
     {
         System.out.println("");
-        int counter=1;
         for(Member member:memberList)
         {
-            System.out.println(Integer.toString(counter) + ". " + member.getName());
-            counter++;
+            member.show();
         }
     }
 
